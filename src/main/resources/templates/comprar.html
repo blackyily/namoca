@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <title>Namoca - Comprar</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/diseño.css">
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg px-4" style="background-color: #133930;">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/home">
+                <img src="/img/logoNamoca.png" width="125" height="70" alt="Namoca Logo">
+            </a>
+            <div class="ms-auto d-flex align-items-center gap-2">
+                <a class="nav-link text-white" href="/comprar">Comprar</a>
+                <a class="nav-link text-white" href="/quienesomos">Quienes somos</a>
+                <a class="nav-link text-white" href="#">Donar</a>
+                <a href="/carrito" class="cart-wrapper ms-2">
+                    <i class="bi bi-cart3 text-white fs-5"></i>
+                    <span class="cart-badge">0</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Top Banner Image -->
+    <section class="container-fluid px-0">
+        <img src="/img/mockup.png" class="w-100"
+            style="object-fit:cover; max-height: 450px; object-position: center 20%;" alt="Mujer con tableta">
+    </section>
+
+    <!-- 3 Categories Full-Width Columns -->
+    <section class="categories-banner">
+        <div class="cat-col cat-pills">
+            <span class="cat-title">PASTILLAS</span>
+            <img src="/img/fotoNamoca.png" alt="Pastillas" class="img-fluid">
+        </div>
+        <div class="cat-col cat-brush">
+            <span class="cat-title">CEPILLO DENTAL</span>
+            <img src="/img/foto cep.png" alt="Cepillo Dental" class="img-fluid">
+        </div>
+        <div class="cat-col cat-floss">
+            <span class="cat-title">HILO DENTAL</span>
+            <img src="/img/dentalfloss.png" alt="Hilo Dental" class="img-fluid">
+        </div>
+    </section>
+
+    <!-- Products Grid -->
+    <section class="container mt-5 mb-5">
+        <div class="row">
+
+            <!-- Product 1 -->
+            <div class="col-md-3">
+                <div class="product-card">
+                    <div class="img-container">
+                        <img src="/img/namoca_kids.png" alt="Tabletas kids 500 g">
+                    </div>
+                    <div class="product-title">Tabletas kids 500 g</div>
+                    <div class="product-price">$500.00</div>
+                    <button class="btn-add-cart"
+                        onclick="addToCart('prod1', 'Tabletas kids 500 g', 500.00, '/img/namoca_kids.png')">Agregar</button>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="col-md-3">
+                <div class="product-card bg-light-green">
+                    <div class="img-container">
+                        <img src="/img/fotoNamoca.png" alt="Tabletas Menta 500 g">
+                    </div>
+                    <div class="product-title">Tabletas Menta 500 g</div>
+                    <div class="product-price">$500.00</div>
+                    <button class="btn-add-cart"
+                        onclick="addToCart('prod2', 'Tabletas Menta 500 g', 500.00, '/img/fotoNamoca.png')">Agregar</button>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="col-md-3">
+                <div class="product-card bg-dark-green">
+                    <div class="img-container">
+                        <img src="/img/variante_carbon.png" alt="Tabletas Carbón Activado">
+                    </div>
+                    <div class="product-title">Tabletas Carbón Activado</div>
+                    <div class="product-price">$550.00</div>
+                    <button class="btn-add-cart"
+                        onclick="addToCart('prod3', 'Tabletas Carbón Activado', 550.00, '/img/variante_carbon.png')">Agregar</button>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="col-md-3">
+                <div class="product-card bg-light-green">
+                    <div class="img-container">
+                        <img src="/img/dentalfloss.png" alt="Hilo Dental Namoca">
+                    </div>
+                    <div class="product-title">Hilo Dental Biodegradable</div>
+                    <div class="product-price">$120.00</div>
+                    <button class="btn-add-cart"
+                        onclick="addToCart('prod4', 'Hilo Dental Biodegradable', 120.00, '/img/dentalfloss.png')">Agregar</button>
+                </div>
+            </div>
+
+            <!-- Product 5 -->
+            <div class="col-md-3">
+                <div class="product-card bg-dark-green">
+                    <div class="img-container">
+                        <img src="/img/foto cep.png" alt="Cepillo de Bambú">
+                    </div>
+                    <div class="product-title">Cepillo de Bambú M</div>
+                    <div class="product-price">$80.00</div>
+                    <button class="btn-add-cart"
+                        onclick="addToCart('prod5', 'Cepillo de Bambú M', 80.00, '/img/foto cep.png')">Agregar</button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <script src="/js/cart.js"></script>
+</body>
+
+</html>

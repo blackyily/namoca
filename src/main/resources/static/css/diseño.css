@@ -1,0 +1,381 @@
+.body-login {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    height: 100vh;
+    background: linear-gradient(to bottom, #133930, #133930);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Imagen de ondas */
+.body-login::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 500px;
+    background: url('/img/ondas.png') no-repeat bottom;
+    background-size: cover;
+}
+
+
+/* Tarjeta */
+.login-card {
+    background: #d9d9d9;
+    padding: 50px;
+    border-radius: 40px;
+    width: 380px;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+/* Título */
+.login-card h2 {
+    color: #2F5D50;
+    margin-bottom: 30px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bolder;
+}
+
+/* Labels */
+.login-card label {
+    display: block;
+    text-align: left;
+    font-weight: bold;
+    margin-top: 15px;
+    font-family: 'Montserrat', sans-serif;
+
+}
+
+/* Inputs */
+.login-card input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    background: #cfcfcf;
+    margin-top: 10px;
+}
+
+/* Botón */
+.login-card button {
+    width: 100%;
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    background: #50874F;
+    color: white;
+    font-weight: bold;
+    transition: 0.3s;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.login-card button:hover {
+    background: #3b6f50;
+}
+
+
+/* ── General ─────────────────────────────────────── */
+* {
+    font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    background-color: #ffffff;
+}
+
+/* ── Navbar ──────────────────────────────────────── */
+.navbar {
+    background-color: #133930;
+    height: 64px;
+}
+
+.navbar .nav-link {
+    font-size: 0.9rem;
+    font-weight: 400;
+}
+
+/* ── Hero Card ───────────────────────────────────── */
+.hero-card {
+    background-color: #97d1a6;
+    background-image: url('/img/fotoNamoca.png');
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-size: 100%;
+    border-radius: 70px;
+    min-height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.small-title {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: #133930;
+    margin-bottom: 12px;
+    padding-left: 30px;
+}
+
+.hero-card h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1.15;
+    color: #0d1f17;
+    padding-left: 30px;
+}
+
+.hero-card .btn-dark {
+    background-color: #245D50;
+    border: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    max-width: 150px;
+    padding-left: 30px;
+
+}
+
+.hero-card .btn-dark:hover {
+    background-color: #133930;
+}
+
+
+/* ── Tagline Section ─────────────────────────────── */
+.tagline-section {
+    padding: 60px 16px 40px;
+}
+
+.tagline-section h2 {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: #0d1f17;
+    margin-bottom: 12px;
+}
+
+.tagline-section p {
+    font-size: 0.95rem;
+    color: #6c757d;
+    line-height: 1.65;
+}
+
+/* ── Updates for Home and Comprar ───────────────────────── */
+.home-hero {
+    background-color: #9ad0a8;
+    position: relative;
+    overflow: hidden;
+    padding: 4rem 10%;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+}
+
+.home-hero .hero-content {
+    z-index: 2;
+    position: relative;
+    max-width: 50%;
+}
+
+.home-hero img.hero-bag {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 50%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 1;
+}
+
+@media (max-width: 768px) {
+    .home-hero img.hero-bag {
+        right: -150px;
+        opacity: 0.5;
+    }
+}
+
+.tagline-flex {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    align-items: center;
+    text-align: left;
+    margin: 4rem auto;
+    max-width: 900px;
+    padding: 0 20px;
+}
+
+.tagline-flex h2 {
+    flex: 1;
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin: 0;
+    color: #000;
+}
+
+.tagline-flex p {
+    flex: 1.5;
+    margin: 0;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+/* Comprar Page Styles */
+.categories-banner {
+    display: flex;
+    width: 100%;
+}
+
+.cat-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    position: relative;
+    min-height: 400px;
+    overflow: hidden;
+}
+
+.cat-col img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 1;
+}
+
+.cat-title {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: #133930;
+    z-index: 2;
+}
+
+.cat-pills {
+    background-color: transparent;
+}
+
+.cat-brush {
+    background-color: transparent;
+}
+
+.cat-brush .cat-title {
+    color: #133930;
+}
+
+.cat-floss {
+    background-color: transparent;
+}
+
+.product-card {
+    border: none;
+    text-align: left;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-card .img-container {
+    background-color: transparent;
+    border-radius: 20px;
+    padding: 0;
+    display: block;
+    margin-bottom: 10px;
+    height: 250px;
+    position: relative;
+    overflow: hidden;
+}
+
+.product-card.bg-dark-green .img-container {
+    background-color: transparent;
+}
+
+.product-card.bg-light-green .img-container {
+    background-color: transparent;
+}
+
+.product-card .img-container img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.3s;
+}
+
+.product-card:hover .img-container img {
+    transform: scale(1.05);
+}
+
+.product-title {
+    font-size: 0.75rem;
+    font-weight: 800;
+    margin-bottom: 2px;
+}
+
+.product-price {
+    font-size: 1rem;
+    font-weight: 800;
+}
+
+.btn-add-cart {
+    background-color: #133930;
+    color: white;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 5px 15px;
+    border: none;
+    margin-top: 10px;
+    width: fit-content;
+}
+
+.btn-add-cart:hover {
+    background-color: #2F5D50;
+}
+
+.btn-dark-green {
+    background-color: #245D50;
+    color: white;
+}
+
+.btn-dark-green:hover {
+    background-color: #2F5D50;
+    color: white;
+}
+
+/* Badge for Cart */
+.cart-wrapper {
+    position: relative;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.cart-badge {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background-color: #ff4757;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    display: none;
+}
