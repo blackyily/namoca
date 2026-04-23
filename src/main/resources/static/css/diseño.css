@@ -22,7 +22,7 @@
 
 /* Tarjeta */
 .login-card {
-    background: #d9d9d9;
+    background: #f2f2f2; /* Updated to lighter gray to match image */
     padding: 50px;
     border-radius: 40px;
     width: 380px;
@@ -31,49 +31,72 @@
     z-index: 2;
 }
 
+.registro-card {
+    background: #f2f2f2;
+    padding: 50px;
+    border-radius: 40px;
+    width: 550px; /* Wider for 2 columns */
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
 /* Título */
-.login-card h2 {
+.login-card h2, .registro-card h2 {
     color: #2F5D50;
     margin-bottom: 30px;
     font-family: 'Montserrat', sans-serif;
-    font-weight: bolder;
+    font-weight: 800;
 }
 
 /* Labels */
-.login-card label {
+.login-card label, .registro-card label {
     display: block;
     text-align: left;
-    font-weight: bold;
+    font-weight: 700;
     margin-top: 15px;
     font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+}
 
+.registro-card .row label {
+    margin-top: 0;
+}
+
+.registro-card .mb-2 {
+    margin-top: 15px;
+}
+
+.registro-card .mb-3 {
+    margin-top: 15px;
+    margin-bottom: 20px;
 }
 
 /* Inputs */
-.login-card input {
+.login-card input, .registro-card input {
     width: 100%;
     padding: 10px;
     border-radius: 20px;
     border: none;
-    background: #cfcfcf;
-    margin-top: 10px;
+    background: #dfdfdf;
+    margin-top: 5px;
 }
 
 /* Botón */
-.login-card button {
+.login-card button, .registro-card button {
     width: 100%;
-    margin-top: 20px;
-    padding: 10px;
+    margin-top: 25px;
+    padding: 12px;
     border-radius: 20px;
     border: none;
-    background: #50874F;
+    background: #5A8F59;
     color: white;
     font-weight: bold;
     transition: 0.3s;
     font-family: 'Montserrat', sans-serif;
 }
 
-.login-card button:hover {
+.login-card button:hover, .registro-card button:hover {
     background: #3b6f50;
 }
 

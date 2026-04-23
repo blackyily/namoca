@@ -13,6 +13,9 @@
     <h2>Log In</h2>
 
     <form action="/login" method="post">
+        <!-- Preserve redirect destination -->
+        <input type="hidden" name="redirect" th:value="${redirect}">
+
         <label>Correo</label>
         <input type="email" name="email" required>
 
@@ -23,6 +26,12 @@
     </form>
 
     <p style="color:red;" th:if="${error}" th:text="${error}"></p>
+    
+    <div style="margin-top: 15px; text-align: center;">
+        <p>¿No tienes cuenta? 
+            <a th:href="@{/registro(redirect=${redirect})}">Regístrate aquí</a>
+        </p>
+    </div>
 </div>
 
 </body>
