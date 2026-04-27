@@ -2,6 +2,7 @@ package com.example.demo.model;
 
 import jakarta.persistence.*;
 import java.math.BigDecimal;
+import java.util.List; // Importante para las listas
 
 @Entity
 @Table(name = "products")
@@ -15,8 +16,10 @@ public class Product {
     @Column(name = "product_name", length = 60)
     private String productName;
 
-    @Column(name = "category_id")
-    private Integer categoryId;
+    // Cambiamos Integer por la relación real con Category
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 
     @Column(name = "model_year")
     private Integer modelYear;
@@ -27,8 +30,17 @@ public class Product {
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    // Getters and Setters
+    // --- RELACIONES ---
 
+    // Un producto tiene muchas variantes (Menta, Carbón, etc.)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<ProductVariant> variants;
+
+    // Un producto tiene muchas imágenes
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<ProductImage> images;
+
+    // --- GETTERS Y SETTERS ---
     public Integer getProductId() {
         return productId;
     }
@@ -45,12 +57,12 @@ public class Product {
         this.productName = productName;
     }
 
-    public Integer getCategoryId() {
-        return categoryId;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setCategoryId(Integer categoryId) {
-        this.categoryId = categoryId;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public Integer getModelYear() {
@@ -75,5 +87,21 @@ public class Product {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<ProductVariant> getVariants() {
+        return variants;
+    }
+
+    public void setVariants(List<ProductVariant> variants) {
+        this.variants = variants;
+    }
+
+    public List<ProductImage> getImages() {
+        return images;
+    }
+
+    public void setImages(List<ProductImage> images) {
+        this.images = images;
     }
 }

@@ -14,7 +14,7 @@
             <a class="nav-link text-white" href="/comprar">Comprar</a>
             <a class="nav-link text-white" href="/quienesSomos">Quienes somos</a>
             <a class="nav-link text-white" href="/donar">Donar</a>
-            <a href="/carrito" class="cart-wrapper ms-2" id="cart-icon-link">
+            <a href="/checkout" class="cart-wrapper ms-2" id="cart-icon-link">
                 <i class="bi bi-cart3 text-white fs-5"></i>
                 <span class="cart-badge" id="cart-count">0</span>
             </a>
@@ -22,10 +22,6 @@
     </div>
 </nav>
 
-<!-- ════════════════════════════════════════════════
-     FRAGMENT: footer
-     Uso: <footer th:replace="~{fragments :: footer}"></footer>
-     ════════════════════════════════════════════════ -->
 <footer th:fragment="footer" class="home-footer" id="home-footer">
     <h5>Contáctanos</h5>
     <a href="https://www.instagram.com/namocamx" target="_blank" id="footer-instagram">
@@ -38,5 +34,46 @@
         <i class="bi bi-envelope"></i> @namocanaturea
     </a>
 </footer>
+
+<!-- ════════════════════════════════════════════════
+     FRAGMENT: checkoutStepper
+     Uso: <div th:replace="~{fragments :: checkoutStepper(activeStep='direccion')}"></div>
+     ════════════════════════════════════════════════ -->
+<div th:fragment="checkoutStepper(activeStep)" class="checkout-stepper">
+    <a href="/checkout" class="step" th:classappend="${activeStep == 'carrito'} ? 'active' : ''"
+        style="text-decoration: none;">Carrito</a>
+    <i class="bi bi-arrow-right-circle step-arrow"></i>
+    <a href="/checkout/direccion" class="step" th:classappend="${activeStep == 'direccion'} ? 'active' : ''"
+        style="text-decoration: none;">Procede al pago</a>
+    <i class="bi bi-arrow-right-circle step-arrow"></i>
+    <a href="/checkout/pagar" class="step" th:classappend="${activeStep == 'pagar'} ? 'active' : ''"
+        style="text-decoration: none;">Pagar</a>
+</div>
+
+<!-- ════════════════════════════════════════════════
+     FRAGMENT: checkoutSummary
+     Uso: <div th:replace="~{fragments :: checkoutSummary(productos=${productos}, total=${total})}"></div>
+     ════════════════════════════════════════════════ -->
+<div th:fragment="checkoutSummary(productos, total)" class="ps-lg-4">
+    <div th:each="item : ${productos}" class="summary-item mb-3">
+        <img th:src="${item.productVariant.product.images != null and !item.productVariant.product.images.isEmpty()} 
+                    ? ${item.productVariant.product.images[0].imageUrl} 
+                    : 'https://via.placeholder.com/150'" th:alt="${item.productVariant.variantName}">
+
+        <div class="summary-item-info">
+            <h6 th:text="${item.productVariant.product.productName + ' ' + item.productVariant.variantName}">Nombre</h6>
+            <p th:text="${'$' + #numbers.formatDecimal(item.priceAtAdd, 1, 2) + ' x ' + item.quantity}">$0.00 x 1</p>
+        </div>
+        <div class="summary-price" th:text="${'$' + #numbers.formatDecimal(item.priceAtAdd * item.quantity, 1, 2)}">
+            $0.00</div>
+    </div>
+
+    <div class="checkout-divider"></div>
+
+    <div class="d-flex justify-content-between align-items-center">
+        <h5 class="fw-bold mb-0">Total:</h5>
+        <h4 class="fw-bold mb-0" th:text="${'$' + #numbers.formatDecimal(total, 1, 2)}">$0.00</h4>
+    </div>
+</div>
 
 </html>

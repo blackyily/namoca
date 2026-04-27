@@ -13,7 +13,6 @@
 
     <nav th:replace="~{fragments :: navbar}"></nav>
 
-    <!-- HERO SECTION -->
     <section class="qs-hero">
         <div class="qs-hero-content container px-4">
             <h1>QUIENES<br>SOMOS</h1>
@@ -31,7 +30,7 @@
     <section class="container mt-5 px-4 mb-5">
         <div class="row align-items-center">
             <div class="col-md-6 mb-4 mb-md-0">
-                <img src="/img/fotoNamoca.png" alt="Equipo Enactus" class="img-fluid rounded-4 shadow-sm"
+                <img src="/img/competencia.jpg" alt="Equipo Enactus" class="img-fluid rounded-4 shadow-sm"
                     style="width: 100%; object-fit: cover; border-radius: 30px !important; aspect-ratio: 4/3;">
             </div>
             <div class="col-md-6 ps-md-5">
@@ -39,7 +38,8 @@
                 </h2>
                 <p style="color: #333; font-size: 0.95rem; font-weight: 500;">
                     Namoca tuvo la oportunidad de participar en la copa mundial de enactus en Kazajistan, representando
-                    a Mexico al haber ganado el
+                    a Mexico al haber ganado el primer lugar en la liga Early Stage en la competencia nacional de
+                    enactus Mexico 2024.
                 </p>
             </div>
         </div>
@@ -104,7 +104,23 @@
                     de voluntarios y haz la diferencia mientras fortaleces tus habilidades y llevamos sonrisas a más
                     rincones del mundo.</p>
 
-                <form action="/quienesomos/aplicar" method="POST">
+                <!-- USUARIO SIN SESIÓN: muestra botón para iniciar sesión -->
+                <div th:if="${loggedInCustomer == null}" class="text-center py-4">
+                    <i class="bi bi-lock-fill mb-3" style="font-size: 2.5rem; color: #133930;"></i>
+                    <p class="fw-bold mb-3" style="color: #133930;">Inicia sesión para aplicar como voluntario</p>
+                    <a href="/login?redirect=/quienesSomos" class="btn rounded-pill px-4 py-2 text-white fw-bold"
+                        style="background-color: #133930;">
+                        Iniciar sesión
+                    </a>
+                    <p class="mt-3" style="color: #133930; font-size: 0.85rem;">
+                        ¿No tienes cuenta?
+                        <a href="/registro?redirect=/quienesSomos" style="color: #133930; font-weight: 700;">Regístrate
+                            aquí</a>
+                    </p>
+                </div>
+
+                <!-- USUARIO CON SESIÓN: muestra el formulario completo -->
+                <form th:if="${loggedInCustomer != null}" action="/quienesSomos/aplicar" method="POST">
                     <div class="row g-3">
                         <div class="col-md-4">
                             <label class="form-label mb-1"

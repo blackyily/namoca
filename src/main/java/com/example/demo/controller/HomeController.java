@@ -29,7 +29,11 @@ public class HomeController {
     }
 
     @GetMapping("/quienesSomos")
-    public String quienesSomos(Model model) {
+    public String quienesSomos(HttpSession session, Model model) {
+        // Pasamos el customer a la vista para que Thymeleaf pueda mostrar/ocultar
+        // elementos
+        Customer loggedInCustomer = (Customer) session.getAttribute("loggedInCustomer");
+        model.addAttribute("loggedInCustomer", loggedInCustomer);
         return "quienesSomos";
     }
 
@@ -66,13 +70,8 @@ public class HomeController {
 
         volunteerApplicationRepository.save(application);
 
-        redirectAttributes.addFlashAttribute("successMessage", "¡Tu solicitud ha sido enviada con éxito!");
+        redirectAttributes.addFlashAttribute("successMessage", "Se mandaron tus datos correctamente");
         return "redirect:/quienesSomos";
-    }
-
-    @GetMapping("/comprar")
-    public String comprar() {
-        return "comprar";
     }
 
     @GetMapping("/carrito")
@@ -80,15 +79,4 @@ public class HomeController {
         return "carrito";
     }
 
-    @GetMapping("/checkout")
-    public String checkout(HttpSession session, Model model) {
-        Customer loggedInCustomer = (Customer) session.getAttribute("loggedInCustomer");
-        if (loggedInCustomer == null) {
-            // Not logged in, redirect to login page and store the intended destination
-            return "redirect:/login?redirect=/checkout";
-        }
-
-        model.addAttribute("customer", loggedInCustomer);
-        return "checkout";
-    }
 }

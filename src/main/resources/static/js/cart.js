@@ -1,99 +1,68 @@
-// Funciones del carrito usando localStorage
+// Funciones del carrito persistentes en Backend (PostgreSQL)
 
-function initCart() {
-    updateCartIcon();
-    // Identifica la página de carrito y carga los elementos
-    const cartContainer = document.getElementById('cart-items-container');
-    if (cartContainer) {
-        renderCartItems();
-    }
-}
+async function addToCart(variantId, name, price, imagePath) {
+    try {
+        // Usamos URLSearchParams para asegurar que los parámetros se envíen como x-www-form-urlencoded
+        // Esto garantiza la compatibilidad con @RequestParam en Spring Boot.
+        const params = new URLSearchParams();
+        params.append('variantId', variantId);
+        params.append('price', price);
 
-function addToCart(id, name, price, imagePath) {
-    let cart = JSON.parse(localStorage.getItem('namoca_cart')) || [];
-    
-    // Verificar si ya existe
-    const existingItemIndex = cart.findIndex(item => item.id === id);
-    if (existingItemIndex > -1) {
-        cart[existingItemIndex].quantity += 1;
-    } else {
-        cart.push({
-            id: id,
-            name: name,
-            price: price,
-            image: imagePath,
-            quantity: 1
+        const response = await fetch('/carrito/agregar', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: params
         });
-    }
-    
-    localStorage.setItem('namoca_cart', JSON.stringify(cart));
-    updateCartIcon();
-}
 
-function updateCartIcon() {
-    let cart = JSON.parse(localStorage.getItem('namoca_cart')) || [];
-    const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
-    
-    const cartBadges = document.querySelectorAll('.cart-badge');
-    cartBadges.forEach(badge => {
-        badge.innerText = totalItems;
-        if (totalItems > 0) {
-            badge.style.display = 'inline-block';
+        if (response.ok) {
+            // Actualizar el icono inmediatamente tras agregar
+            await updateCartIcon();
+            alert('¡' + name + ' se agregó al carrito!');
+        } else if (response.status === 401) {
+            alert('Por favor, inicia sesión para agregar productos al carrito.');
+            window.location.href = '/login?redirect=/comprar';
         } else {
-            badge.style.display = 'none';
+            console.error('Error al agregar al carrito. Status:', response.status);
         }
-    });
-}
-
-function renderCartItems() {
-    const listContainer = document.getElementById('cart-items-container');
-    const totalContainer = document.getElementById('cart-total');
-    let cart = JSON.parse(localStorage.getItem('namoca_cart')) || [];
-    
-    if (cart.length === 0) {
-        listContainer.innerHTML = '<p class="text-center mt-5 mb-5 fs-4">El carrito está vacío.</p>';
-        totalContainer.innerText = '$0.00';
-        return;
+    } catch (error) {
+        console.error('Error de red:', error);
     }
-
-    listContainer.innerHTML = '';
-    let total = 0;
-
-    cart.forEach((item, index) => {
-        const itemTotal = item.price * item.quantity;
-        total += itemTotal;
-        listContainer.innerHTML += `
-            <div class="d-flex align-items-center justify-content-between p-3 border-bottom">
-                <div class="d-flex align-items-center gap-3">
-                    <img src="${item.image}" alt="${item.name}" width="50" height="70" style="object-fit: cover;">
-                    <div>
-                        <h5 class="m-0 fw-bold">${item.name}</h5>
-                        <p class="m-0 text-muted">$${item.price.toFixed(2)} x ${item.quantity}</p>
-                    </div>
-                </div>
-                <div class="d-flex align-items-center gap-3">
-                    <span class="fs-5 fw-bold">$${itemTotal.toFixed(2)}</span>
-                    <button class="btn btn-sm btn-outline-danger" onclick="removeFromCart(${index})"><i class="bi bi-trash"></i></button>
-                </div>
-            </div>
-        `;
-    });
-
-    totalContainer.innerText = '$' + total.toFixed(2);
 }
 
-function removeFromCart(index) {
-    let cart = JSON.parse(localStorage.getItem('namoca_cart')) || [];
-    cart.splice(index, 1);
-    localStorage.setItem('namoca_cart', JSON.stringify(cart));
+// Función puente para los botones dinámicos de Thymeleaf.
+function addToCartFromData(button) {
+    const id = button.getAttribute('data-id');
+    const nombre = button.getAttribute('data-nombre');
+    const precio = parseFloat(button.getAttribute('data-precio'));
+    const imagen = button.getAttribute('data-imagen');
+    addToCart(id, nombre, precio, imagen);
+}
+
+// Función para actualizar el badge del carrito (círculo rojo) desde el servidor
+async function updateCartIcon() {
+    try {
+        const response = await fetch('/carrito/count');
+        if (response.ok) {
+            const totalItems = await response.json();
+            const cartBadges = document.querySelectorAll('.cart-badge');
+            
+            cartBadges.forEach(badge => {
+                badge.innerText = totalItems;
+                if (totalItems > 0) {
+                    badge.style.display = 'inline-block';
+                } else {
+                    badge.style.display = 'none';
+                }
+            });
+        }
+    } catch (error) {
+        console.error('Error al obtener el conteo del carrito:', error);
+    }
+}
+
+// Inicializar al cargar la página
+document.addEventListener('DOMContentLoaded', () => {
     updateCartIcon();
-    renderCartItems();
-}
-
-function clearCart() {
-    localStorage.removeItem('namoca_cart');
-    updateCartIcon();
-    renderCartItems();
-}
-
-document.addEventListener('DOMContentLoaded', initCart);
+});

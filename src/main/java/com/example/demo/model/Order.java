@@ -13,7 +13,7 @@ public class Order {
     private Integer orderId;
 
     @Column(name = "customer_id")
-    private Integer customerId;
+    private Long customerId;
 
     @Column(name = "address_id")
     private Integer addressId;
@@ -30,6 +30,9 @@ public class Order {
     @Column(name = "shipped_date")
     private LocalDateTime shippedDate;
 
+    @Column(name = "comprobante_url")
+    private String comprobanteUrl;
+
     // Getters and Setters
 
     public Integer getOrderId() {
@@ -40,11 +43,11 @@ public class Order {
         this.orderId = orderId;
     }
 
-    public Integer getCustomerId() {
+    public Long getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(Integer customerId) {
+    public void setCustomerId(Long customerId) {
         this.customerId = customerId;
     }
 
@@ -86,5 +89,13 @@ public class Order {
 
     public void setShippedDate(LocalDateTime shippedDate) {
         this.shippedDate = shippedDate;
+    }
+
+    public String getComprobanteUrl() {
+        return comprobanteUrl;
+    }
+
+    public void setComprobanteUrl(String comprobanteUrl) {
+        this.comprobanteUrl = comprobanteUrl;
     }
 }

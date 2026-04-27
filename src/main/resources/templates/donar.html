@@ -21,22 +21,17 @@
         </div>
     </section>
 
-    <!-- DONATION INTERACTIVE SECTION -->
     <section class="donar-interactive container-fluid">
         <div class="row align-items-center">
-            
-            <!-- LEFT COLUMN: Semicircular Slider -->
+
+            <!--Slider -->
             <div class="col-md-6 mb-5 mb-md-0">
                 <div class="slider-container" id="slider-container">
-                    
+
                     <svg class="slider-svg" viewBox="0 0 200 120" preserveAspectRatio="xMidYMax meet">
-                        <!-- El track dibujará un arco desde (20, 20) hasta (180, 20) en forma de U -->
                         <path id="trackPath" class="slider-track" d="M 20 20 A 80 80 0 0 0 180 20" />
-                        <!-- La barra de progreso superpuesta -->
                         <path id="progressPath" class="slider-progress" d="M 20 20 A 80 80 0 0 0 180 20" />
-                        <!-- Hitbox para facilitar el arrastre -->
                         <path id="hitboxPath" class="slider-hitbox" d="M 20 20 A 80 80 0 0 0 180 20" />
-                        <!-- Thumb arrastrable -->
                         <circle id="sliderThumb" class="slider-thumb" cx="20" cy="20" r="8" />
                     </svg>
 
@@ -46,7 +41,6 @@
                 </div>
             </div>
 
-            <!-- RIGHT COLUMN: Amount & Action -->
             <div class="col-md-6">
                 <div class="donation-amount-container">
                     <div class="donation-amount" id="amount-display">$10.00</div>
@@ -64,7 +58,7 @@
                     </div>
                 </div>
             </div>
-            
+
         </div>
     </section>
 
@@ -82,64 +76,58 @@
             const amountDesc = document.getElementById('amount-desc');
             const impactImage = document.getElementById('impact-image');
 
-            // Configuración del slider
-            const minAmount = 10;
-            const maxAmount = 300;
+            const minAmount = 60;
+            const maxAmount = 1000;
             const centerX = 100;
             const centerY = 20;
             const radius = 80;
-            
-            // Calculamos la longitud total del semicírculo para poder animar el dashoffset
+
             const pathLength = progressPath.getTotalLength();
             progressPath.style.strokeDasharray = pathLength;
-            
+
             let isDragging = false;
 
-            // Función para actualizar UI basado en un valor [0, 1]
             function updateSlider(progress) {
-                // Limitar progreso entre 0 y 1
                 progress = Math.max(0, Math.min(1, progress));
-                
-                // Calcular ángulo en radianes (0 es izquierda, PI es derecha)
+
                 const angle = progress * Math.PI;
-                
-                // Posición X e Y del thumb
                 const thumbX = centerX - Math.cos(angle) * radius;
                 const thumbY = centerY + Math.sin(angle) * radius;
-                
-                // Actualizar posiciones SVG
+
                 thumb.setAttribute('cx', thumbX);
                 thumb.setAttribute('cy', thumbY);
-                
-                // Actualizar progreso rellenando el arco
-                // Offset = Length significa vacío, 0 significa lleno
+
                 const offset = pathLength - (progress * pathLength);
                 progressPath.style.strokeDashoffset = offset;
-                
-                // Actualizar montos e imágenes
+
                 const currentAmount = minAmount + (maxAmount - minAmount) * progress;
                 updateDOM(currentAmount);
             }
 
-            // Cambiar textos y las imágenes con opacidad
-            let lastRange = 0; // 1: basico, 2: medio, 3: alto
+            let lastRange = 0;
             function updateDOM(amount) {
                 const roundedAmount = Math.round(amount);
                 amountDisplay.textContent = `$${roundedAmount.toFixed(2)}`;
-                
+
                 let range = 1;
                 let src = '/img/moneda.PNG';
                 let desc = 'Una pastilla namoca';
 
-                if (roundedAmount <= 90) {
+                if (roundedAmount <= 60) {
                     range = 1;
                     src = '/img/moneda.PNG';
                     desc = 'Una pastilla namoca';
-                } else if (roundedAmount <= 150) {
+                } else if (roundedAmount <= 300) {
                     range = 2;
                     src = '/img/monedas.PNG';
                     desc = 'Varias pastillas namoca';
-                } else {
+                }
+                else if (roundedAmount <= 600) {
+                    range = 2;
+                    src = '/img/masmonedas.PNG';
+                    desc = '10 paquetes de pastillas namoca';
+                }
+                else {
                     range = 3;
                     src = '/img/muchasmonedas.PNG';
                     desc = 'Suministro mensual de pastillas';
@@ -147,7 +135,6 @@
 
                 amountDesc.textContent = desc;
 
-                // Solo actualizar imagen si cambió de rango para evitar parpadeos
                 if (range !== lastRange) {
                     impactImage.style.opacity = 0;
                     setTimeout(() => {
@@ -158,11 +145,10 @@
                 }
             }
 
-            // Manejo de eventos de arrastre
             function handleInteraction(event) {
                 if (!isDragging) return;
-                event.preventDefault(); // Prevenir scrolling en touch
-                
+                event.preventDefault();
+
                 let clientX, clientY;
                 if (event.touches) {
                     clientX = event.touches[0].clientX;
@@ -171,28 +157,25 @@
                     clientX = event.clientX;
                     clientY = event.clientY;
                 }
-                
-                // Coordenadas relativas al SVG
+
                 const rect = svg.getBoundingClientRect();
                 const x = clientX - rect.left;
                 const y = clientY - rect.top;
-                
-                // Convertir coordenadas del DOM al viewBox (0 0 200 110)
                 const scaleX = 200 / rect.width;
                 const scaleY = 110 / rect.height;
                 const svgX = x * scaleX;
                 const svgY = y * scaleY;
-                
+
                 // Calcular vector desde el centro
                 const dx = centerX - svgX;
                 const dy = svgY - centerY;
-                
+
                 // Calcular ángulo: Math.atan2(y, x)
                 // En nuestro SVG (0,0) está arriba a la izq. 
                 // dy = svgY - centerY, para que abajo sea positivo.
                 // dx = centerX - svgX, para que izquierda sea positivo.
-                let angle = Math.atan2(dy, dx); 
-                
+                let angle = Math.atan2(dy, dx);
+
                 // Limitar ángulo al rango superior del semicírculo (0 a PI)
                 // Si angle < 0, estamos debajo del centro. Obligamos al punto más cercano
                 if (angle < 0) {
@@ -202,7 +185,7 @@
                         angle = Math.PI; // Obligamos derecha
                     }
                 }
-                
+
                 // Progreso es ángulo normalizado (0 a 1)
                 const progress = angle / Math.PI;
                 updateSlider(progress);
@@ -226,7 +209,7 @@
             svg.addEventListener('touchstart', startDrag, { passive: false });
             window.addEventListener('touchmove', handleInteraction, { passive: false });
             window.addEventListener('touchend', stopDrag);
-            
+
             // Inicializar (0 progreso)
             updateSlider(0);
         });

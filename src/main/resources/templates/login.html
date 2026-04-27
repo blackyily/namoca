@@ -27,8 +27,13 @@
         </form>
 
         <p style="color:red;" th:if="${error}" th:text="${error}"></p>
+        <p style="color:#133930; font-weight: 600; text-align: center;" th:if="${success}" th:text="${success}"></p>
+        <p style="color:#133930; font-weight: 600; text-align: center;" th:if="${param.registrado}" th:text="'¡Registro exitoso! Ya puedes iniciar sesión.'"></p>
 
         <div style="margin-top: 15px; text-align: center;">
+            <p>
+                <a th:href="@{/forgot-password}">¿Olvidaste tu contraseña?</a>
+            </p>
             <p>¿No tienes cuenta?
                 <a th:href="@{/registro(redirect=${redirect})}">Regístrate aquí</a>
             </p>

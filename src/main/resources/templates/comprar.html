@@ -13,13 +13,11 @@
 
     <nav th:replace="~{fragments :: navbar}"></nav>
 
-    <!-- Top Banner Image -->
     <section class="container-fluid px-0">
         <img src="/img/mockup.png" class="w-100"
             style="object-fit:cover; max-height: 450px; object-position: center 20%;" alt="Mujer con tableta">
     </section>
 
-    <!-- 3 Categories Full-Width Columns -->
     <section class="categories-banner">
         <div class="cat-col cat-pills">
             <span class="cat-title">PASTILLAS</span>
@@ -35,79 +33,49 @@
         </div>
     </section>
 
-    <!-- Products Grid -->
     <section class="container mt-5 mb-5">
-        <div class="row">
 
-            <!-- Product 1 -->
-            <div class="col-md-3">
-                <div class="product-card">
-                    <div class="img-container">
-                        <img src="/img/namoca_kids.png" alt="Tabletas kids 500 g">
-                    </div>
-                    <div class="product-title">Tabletas kids 500 g</div>
-                    <div class="product-price">$500.00</div>
-                    <button class="btn-add-cart"
-                        onclick="addToCart('prod1', 'Tabletas kids 500 g', 500.00, '/img/namoca_kids.png')">Agregar</button>
-                </div>
-            </div>
+        <!-- Mensaje si no hay productos en la base de datos -->
+        <div th:if="${#lists.isEmpty(variantes)}" class="text-center py-5">
+            <p style="color: #133930; font-size: 1.1rem; font-weight: 600;">
+                No hay productos disponibles por el momento.
+            </p>
+        </div>
 
-            <!-- Product 2 -->
-            <div class="col-md-3">
-                <div class="product-card bg-light-green">
-                    <div class="img-container">
-                        <img src="/img/fotoNamoca.png" alt="Tabletas Menta 500 g">
-                    </div>
-                    <div class="product-title">Tabletas Menta 500 g</div>
-                    <div class="product-price">$500.00</div>
-                    <button class="btn-add-cart"
-                        onclick="addToCart('prod2', 'Tabletas Menta 500 g', 500.00, '/img/fotoNamoca.png')">Agregar</button>
-                </div>
-            </div>
+        <div class="row g-4" th:unless="${#lists.isEmpty(variantes)}">
 
-            <!-- Product 3 -->
-            <div class="col-md-3">
-                <div class="product-card bg-dark-green">
-                    <div class="img-container">
-                        <img src="/img/variante_carbon.png" alt="Tabletas Carbón Activado">
-                    </div>
-                    <div class="product-title">Tabletas Carbón Activado</div>
-                    <div class="product-price">$550.00</div>
-                    <button class="btn-add-cart"
-                        onclick="addToCart('prod3', 'Tabletas Carbón Activado', 550.00, '/img/variante_carbon.png')">Agregar</button>
-                </div>
-            </div>
+            <!-- Tarjetas de productos -->
+            <div class="col-md-3" th:each="variante : ${variantes}">
 
-            <!-- Product 4 -->
-            <div class="col-md-3">
-                <div class="product-card bg-light-green">
-                    <div class="img-container">
-                        <img src="/img/dentalfloss.png" alt="Hilo Dental Namoca">
+                <th:block th:with="
+                    imagenVariante=${variante.product.images.?[variant != null and variant.productVariantId == variante.productVariantId]},
+                    imagenPrimaria=${variante.product.images.?[isPrimary == true]},
+                    imagenUrl=${not #lists.isEmpty(imagenVariante) ? imagenVariante[0].imageUrl :
+                               (not #lists.isEmpty(imagenPrimaria) ? imagenPrimaria[0].imageUrl :
+                               '/img/fotoNamoca.png')},
+                    nombreCompleto=${variante.product.productName + ' ' + variante.variantName},
+                    precio=${variante.product.listPrice != null ? variante.product.listPrice : 0}
+                ">
+                    <div class="product-card">
+                        <div class="img-container">
+                            <img th:src="${imagenUrl}" th:alt="${nombreCompleto}"
+                                onerror="this.src='/img/fotoNamoca.png'">
+                        </div>
+                        <div class="product-title" th:text="${nombreCompleto}">Nombre del Producto</div>
+                        <div class="product-price" th:text="'$' + ${#numbers.formatDecimal(precio, 1, 2)}">$0.00</div>
+                        <button class="btn-add-cart" th:data-id="${variante.productVariantId}"
+                            th:data-nombre="${nombreCompleto}" th:data-precio="${precio}" th:data-imagen="${imagenUrl}"
+                            onclick="addToCartFromData(this)">
+                            Agregar
+                        </button>
                     </div>
-                    <div class="product-title">Hilo Dental Biodegradable</div>
-                    <div class="product-price">$120.00</div>
-                    <button class="btn-add-cart"
-                        onclick="addToCart('prod4', 'Hilo Dental Biodegradable', 120.00, '/img/dentalfloss.png')">Agregar</button>
-                </div>
-            </div>
+                </th:block>
 
-            <!-- Product 5 -->
-            <div class="col-md-3">
-                <div class="product-card bg-dark-green">
-                    <div class="img-container">
-                        <img src="/img/foto cep.png" alt="Cepillo de Bambú">
-                    </div>
-                    <div class="product-title">Cepillo de Bambú M</div>
-                    <div class="product-price">$80.00</div>
-                    <button class="btn-add-cart"
-                        onclick="addToCart('prod5', 'Cepillo de Bambú M', 80.00, '/img/foto cep.png')">Agregar</button>
-                </div>
             </div>
 
         </div>
     </section>
 
-    <!-- FOOTER -->
     <footer th:replace="~{fragments :: footer}"></footer>
 
     <script src="/js/cart.js"></script>
