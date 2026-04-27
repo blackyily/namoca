@@ -114,6 +114,14 @@
 
 body {
     background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* El contenido principal debe crecer para empujar el footer hacia abajo */
+.checkout-bg, .container.my-5, .container.py-5, main {
+    flex: 1;
 }
 
 /* ── Navbar ──────────────────────────────────────── */
@@ -130,7 +138,7 @@ body {
 /* ── Hero Card ───────────────────────────────────── */
 .hero-card {
     background-color: #97d1a6;
-    background-image: url('/img/fotoNamoca.png');
+    background-image: url('/img/foto.png');
     background-repeat: no-repeat;
     background-position: right center;
     background-size: 100%;
@@ -913,7 +921,7 @@ body {
     background: #ffffff;
     border-radius: 30px;
     border: none;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
     padding: 2.5rem;
 }
 
@@ -938,7 +946,8 @@ body {
     margin-bottom: 0.5rem;
 }
 
-.checkout-input, .checkout-select {
+.checkout-input,
+.checkout-select {
     background-color: #f2f2f2;
     border: none;
     border-radius: 15px;
@@ -948,7 +957,8 @@ body {
     font-weight: 500;
 }
 
-.checkout-input:focus, .checkout-select:focus {
+.checkout-input:focus,
+.checkout-select:focus {
     background-color: #e9ecef;
     outline: none;
     box-shadow: none;
@@ -1021,7 +1031,7 @@ body {
     background: #ffffff;
     border-radius: 30px;
     padding: 2.5rem;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
 
 .payment-info-box h2 {
@@ -1058,4 +1068,181 @@ body {
     width: 100%;
     border: none;
     font-size: 0.85rem;
+}
+
+/* ══════════════════════════════════════════════════
+   USER PROFILE & ORDER HISTORY
+   ══════════════════════════════════════════════════ */
+
+.profile-card,
+.orders-card,
+.detail-card {
+    background: white;
+    border-radius: 30px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    border: none;
+}
+
+.detail-card {
+    margin-bottom: 30px;
+}
+
+.section-title {
+    color: #133930;
+    font-weight: 800;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #e9ecef;
+    padding-bottom: 15px;
+}
+
+.info-label {
+    font-weight: 600;
+    color: #6c757d;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+.info-value {
+    color: #133930;
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+}
+
+.table thead th {
+    border-top: none;
+    color: #6c757d;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+}
+
+.table tbody td {
+    vertical-align: middle;
+    color: #133930;
+    font-weight: 600;
+    padding: 15px 10px;
+}
+
+.badge-pendiente {
+    background-color: #ffc107;
+    color: #000;
+}
+
+.badge-completado {
+    background-color: #133930;
+    color: #fff;
+}
+
+.badge-en-camino {
+    background-color: #0dcaf0;
+    color: #fff;
+}
+
+.badge-cancelado {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.btn-detail {
+    background-color: #133930;
+    color: white;
+    border-radius: 50px;
+    padding: 8px 20px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn-detail:hover {
+    background-color: #1a4d41;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.empty-state {
+    text-align: center;
+    padding: 50px 0;
+}
+
+.empty-state i {
+    font-size: 4rem;
+    color: #e9ecef;
+    margin-bottom: 20px;
+}
+
+.order-info-header {
+    background-color: #f8f9fa;
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 30px;
+    border-left: 5px solid #133930;
+}
+
+.product-item {
+    display: flex;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.product-item:last-child {
+    border-bottom: none;
+}
+
+.product-img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 15px;
+    background-color: #f8f9fa;
+}
+
+.product-info {
+    flex-grow: 1;
+    padding-left: 20px;
+}
+
+.product-name {
+    color: #133930;
+    font-weight: 700;
+    margin-bottom: 0;
+}
+
+.product-meta {
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+.price-col {
+    text-align: right;
+    font-weight: 700;
+    color: #133930;
+}
+
+.total-section {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 2px solid #f8f9fa;
+    text-align: right;
+}
+
+.btn-back {
+    background-color: transparent;
+    color: #133930;
+    border: 2px solid #133930;
+    border-radius: 50px;
+    padding: 10px 30px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.btn-back:hover {
+    background-color: #133930;
+    color: white;
 }

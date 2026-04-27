@@ -24,6 +24,9 @@ public class ProductVariant {
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
+    @OneToMany(mappedBy = "variant", cascade = CascadeType.ALL)
+    private java.util.List<ProductImage> images;
+
     // --- GETTERS Y SETTERS ---
 
     public Integer getProductVariantId() {
@@ -64,5 +67,12 @@ public class ProductVariant {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+    public java.util.List<ProductImage> getImages() {
+        return images;
+    }
+
+    public void setImages(java.util.List<ProductImage> images) {
+        this.images = images;
     }
 }

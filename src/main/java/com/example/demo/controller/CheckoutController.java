@@ -15,9 +15,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.nio.file.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Controller
@@ -47,11 +45,11 @@ public class CheckoutController {
         Customer customer = getCustomerOrNull(session);
         if (customer == null)
             return "redirect:/login?redirect=/checkout";
-        
+
         List<CartItem> productos = getItemsForCustomer(customer);
         model.addAttribute("productos", productos);
         model.addAttribute("total", calculateTotal(productos));
-        
+
         return "carrito_checkout";
     }
 
@@ -71,7 +69,7 @@ public class CheckoutController {
 
         model.addAttribute("direccion", direccion);
         model.addAttribute("estados", stateRepository.findByActiveTrue());
-        
+
         return "checkout_direccion";
     }
 
@@ -82,7 +80,8 @@ public class CheckoutController {
             @RequestParam String zipCode,
             HttpSession session) {
         Customer customer = getCustomerOrNull(session);
-        if (customer == null) return "redirect:/login";
+        if (customer == null)
+            return "redirect:/login";
 
         Address direccion = addressRepository.findFirstByCustomerId(customer.getCustomerId())
                 .orElse(new Address());
@@ -105,12 +104,13 @@ public class CheckoutController {
     @GetMapping("/checkout/pagar")
     public String verPago(HttpSession session, Model model) {
         Customer customer = getCustomerOrNull(session);
-        if (customer == null) return "redirect:/login";
-        
+        if (customer == null)
+            return "redirect:/login";
+
         List<CartItem> productos = getItemsForCustomer(customer);
         model.addAttribute("productos", productos);
         model.addAttribute("total", calculateTotal(productos));
-        
+
         if (session.getAttribute("checkoutAddressId") == null)
             return "redirect:/checkout/direccion";
 
@@ -123,13 +123,16 @@ public class CheckoutController {
             HttpSession session,
             RedirectAttributes ra) throws IOException {
         Customer customer = getCustomerOrNull(session);
-        if (customer == null) return "redirect:/login";
+        if (customer == null)
+            return "redirect:/login";
 
         Integer addressId = (Integer) session.getAttribute("checkoutAddressId");
-        if (addressId == null) return "redirect:/checkout/direccion";
+        if (addressId == null)
+            return "redirect:/checkout/direccion";
 
         List<CartItem> productos = getItemsForCustomer(customer);
-        if (productos.isEmpty()) return "redirect:/comprar";
+        if (productos.isEmpty())
+            return "redirect:/comprar";
 
         // 1. Guardar archivo
         String nombreFinal = "";
@@ -154,7 +157,11 @@ public class CheckoutController {
         for (CartItem item : productos) {
             OrderItem orderItem = new OrderItem();
             orderItem.setOrderId(savedOrder.getOrderId());
-            orderItem.setProductId(item.getProductVariant().getProduct().getProductId());
+            // Seteamos el objeto completo para que JPA gestione la FK product_id
+            orderItem.setProduct(item.getProductVariant().getProduct());
+            // Seteamos la variante para tener el detalle exacto (Menta, Carbón, etc.)
+            orderItem.setProductVariant(item.getProductVariant());
+            
             orderItem.setQuantity(item.getQuantity());
             orderItem.setUnitPrice(item.getPriceAtAdd());
             orderItem.setDiscountAmount(BigDecimal.ZERO);
@@ -166,7 +173,7 @@ public class CheckoutController {
 
         session.removeAttribute("checkoutAddressId");
         ra.addFlashAttribute("successMessage", "¡Pedido finalizado con éxito! Validaremos tu pago pronto.");
-        return "redirect:/home";
+        return "redirect:/perfil";
     }
 
     private Customer getCustomerOrNull(HttpSession session) {

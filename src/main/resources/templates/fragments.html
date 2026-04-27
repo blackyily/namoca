@@ -1,23 +1,32 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 
-<!-- ════════════════════════════════════════════════
-     FRAGMENT: navbar
-     Uso: <nav th:replace="~{fragments :: navbar}"></nav>
-     ════════════════════════════════════════════════ -->
-<nav th:fragment="navbar" class="navbar navbar-expand-lg px-4" style="background-color: #133930;">
+
+<nav th:fragment="navbar" class="navbar navbar-expand-lg px-5 py-3" style="background-color: #133930;">
     <div class="container-fluid">
         <a class="navbar-brand" href="/home">
-            <img src="/img/logo.png" width="125" height="70" alt="Namoca Logo">
+            <img src="/img/logo.png" width="120" alt="Namoca Logo">
         </a>
-        <div class="ms-auto d-flex align-items-center gap-2">
-            <a class="nav-link text-white" href="/comprar">Comprar</a>
-            <a class="nav-link text-white" href="/quienesSomos">Quienes somos</a>
-            <a class="nav-link text-white" href="/donar">Donar</a>
-            <a href="/checkout" class="cart-wrapper ms-2" id="cart-icon-link">
-                <i class="bi bi-cart3 text-white fs-5"></i>
-                <span class="cart-badge" id="cart-count">0</span>
-            </a>
+
+        <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="navbar-nav ms-auto align-items-center" style="gap: 2.5rem;">
+                <a class="nav-link text-white fw-medium" href="/comprar">Comprar</a>
+                <a class="nav-link text-white fw-medium" href="/quienesSomos">Quienes somos</a>
+                <a class="nav-link text-white fw-medium" href="/donar">Donar</a>
+
+                <a href="/checkout" class="nav-link text-white p-0 position-relative" id="cart-icon-link">
+                    <i class="bi bi-cart3 fs-4"></i>
+                    <span class="cart-badge" id="cart-count">0</span>
+                </a>
+
+                <a href="/perfil" class="nav-link text-white p-0">
+                    <i class="bi bi-person fs-4"></i>
+                </a>
+            </div>
         </div>
     </div>
 </nav>
@@ -35,10 +44,7 @@
     </a>
 </footer>
 
-<!-- ════════════════════════════════════════════════
-     FRAGMENT: checkoutStepper
-     Uso: <div th:replace="~{fragments :: checkoutStepper(activeStep='direccion')}"></div>
-     ════════════════════════════════════════════════ -->
+
 <div th:fragment="checkoutStepper(activeStep)" class="checkout-stepper">
     <a href="/checkout" class="step" th:classappend="${activeStep == 'carrito'} ? 'active' : ''"
         style="text-decoration: none;">Carrito</a>
@@ -50,21 +56,18 @@
         style="text-decoration: none;">Pagar</a>
 </div>
 
-<!-- ════════════════════════════════════════════════
-     FRAGMENT: checkoutSummary
-     Uso: <div th:replace="~{fragments :: checkoutSummary(productos=${productos}, total=${total})}"></div>
-     ════════════════════════════════════════════════ -->
+
 <div th:fragment="checkoutSummary(productos, total)" class="ps-lg-4">
     <div th:each="item : ${productos}" class="summary-item mb-3">
-        <img th:src="${item.productVariant.product.images != null and !item.productVariant.product.images.isEmpty()} 
-                    ? ${item.productVariant.product.images[0].imageUrl} 
-                    : 'https://via.placeholder.com/150'" th:alt="${item.productVariant.variantName}">
+        <img th:src="@{${item.productVariant.images != null and !item.productVariant.images.isEmpty() 
+                    ? '/img/' + item.productVariant.images[0].imageUrl 
+                    : '/img/logoNamoca.png'}}" th:alt="${item.productVariant.variantName}">
 
         <div class="summary-item-info">
             <h6 th:text="${item.productVariant.product.productName + ' ' + item.productVariant.variantName}">Nombre</h6>
-            <p th:text="${'$' + #numbers.formatDecimal(item.priceAtAdd, 1, 2) + ' x ' + item.quantity}">$0.00 x 1</p>
+            <p th:text="|\$${#numbers.formatDecimal(item.priceAtAdd, 1, 2)} x ${item.quantity}|">$0.00 x 1</p>
         </div>
-        <div class="summary-price" th:text="${'$' + #numbers.formatDecimal(item.priceAtAdd * item.quantity, 1, 2)}">
+        <div class="summary-price" th:text="|\$${#numbers.formatDecimal(item.priceAtAdd * item.quantity, 1, 2)}|">
             $0.00</div>
     </div>
 
@@ -72,7 +75,7 @@
 
     <div class="d-flex justify-content-between align-items-center">
         <h5 class="fw-bold mb-0">Total:</h5>
-        <h4 class="fw-bold mb-0" th:text="${'$' + #numbers.formatDecimal(total, 1, 2)}">$0.00</h4>
+        <h4 class="fw-bold mb-0" th:text="|\$${#numbers.formatDecimal(total, 1, 2)}|">$0.00</h4>
     </div>
 </div>
 

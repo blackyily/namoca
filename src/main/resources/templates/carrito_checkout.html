@@ -27,7 +27,9 @@
             </div>
 
             <div th:each="item : ${productos}" class="summary-item mb-4 pb-3 border-bottom">
-                <img th:src="${item.productVariant.product.images != null and !item.productVariant.product.images.isEmpty()} ? ${item.productVariant.product.images[0].imageUrl} : '/img/no-photo.png'"
+                <img th:src="@{${item.productVariant.images != null and !item.productVariant.images.isEmpty() 
+                            ? '/img/' + item.productVariant.images[0].imageUrl 
+                            : '/img/logoNamoca.png'}}"
                     alt="Producto" style="width: 80px; height: 80px; object-fit: cover;">
                 <div class="summary-item-info ms-3">
                     <h6 class="fw-bold"

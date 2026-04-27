@@ -25,7 +25,7 @@
         </div>
         <div class="cat-col cat-brush">
             <span class="cat-title">CEPILLO DENTAL</span>
-            <img src="/img/foto cep.png" alt="Cepillo Dental" class="img-fluid">
+            <img src="/img/cepillo.png" alt="Cepillo Dental" class="img-fluid">
         </div>
         <div class="cat-col cat-floss">
             <span class="cat-title">HILO DENTAL</span>
@@ -44,15 +44,15 @@
 
         <div class="row g-4" th:unless="${#lists.isEmpty(variantes)}">
 
-            <!-- Tarjetas de productos -->
+            <!-- Tarjeta de producto -->
             <div class="col-md-3" th:each="variante : ${variantes}">
 
                 <th:block th:with="
-                    imagenVariante=${variante.product.images.?[variant != null and variant.productVariantId == variante.productVariantId]},
-                    imagenPrimaria=${variante.product.images.?[isPrimary == true]},
-                    imagenUrl=${not #lists.isEmpty(imagenVariante) ? imagenVariante[0].imageUrl :
-                               (not #lists.isEmpty(imagenPrimaria) ? imagenPrimaria[0].imageUrl :
-                               '/img/fotoNamoca.png')},
+                    imagenUrl=${(variante.images != null and !variante.images.isEmpty()) 
+                                ? ('/img/' + variante.images[0].imageUrl) 
+                                : ( (variante.product.images != null and !variante.product.images.isEmpty()) 
+                                    ? ('/img/' + variante.product.images[0].imageUrl) 
+                                    : '/img/logoNamoca.png' )},
                     nombreCompleto=${variante.product.productName + ' ' + variante.variantName},
                     precio=${variante.product.listPrice != null ? variante.product.listPrice : 0}
                 ">
@@ -76,6 +76,7 @@
         </div>
     </section>
 
+    <!-- FOOTER -->
     <footer th:replace="~{fragments :: footer}"></footer>
 
     <script src="/js/cart.js"></script>
