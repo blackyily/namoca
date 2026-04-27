@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <title>Namoca</title>
@@ -11,42 +11,170 @@
 
 <body>
 
-    <nav class="navbar navbar-expand-lg px-4" style="background-color: #133930;">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <img src="/img/logoNamoca.png" width="125" height="50" alt="Namoca Logo">
-            </a>
-            <div class="ms-auto d-flex align-items-center gap-3">
-                <a class="nav-link text-white" href="#">Comprar</a>
-                <a class="nav-link text-white" href="/quienesomos">Quienes somos</a>
-                <a class="nav-link text-white" href="#">Donar</a>
-                <i class="bi bi-cart3 text-white ms-2 fs-5"></i>
+    <nav th:replace="~{fragments :: navbar}"></nav>
+
+    <!-- HERO SECTION -->
+    <section class="qs-hero">
+        <div class="qs-hero-content container px-4">
+            <h1>QUIENES<br>SOMOS</h1>
+        </div>
+    </section>
+
+    <section class="container mt-5 text-center px-4">
+        <h3 class="fw-bold"
+            style="color: #1b4b3e; max-width: 900px; margin: 0 auto; line-height: 1.5; font-size: 1.4rem;">
+            Namoca es un proyecto de emprendimiento social enfocado en la proudcción, sostenible de productos,
+            particularmente tabletas de pasta dental
+        </h3>
+    </section>
+
+    <section class="container mt-5 px-4 mb-5">
+        <div class="row align-items-center">
+            <div class="col-md-6 mb-4 mb-md-0">
+                <img src="/img/fotoNamoca.png" alt="Equipo Enactus" class="img-fluid rounded-4 shadow-sm"
+                    style="width: 100%; object-fit: cover; border-radius: 30px !important; aspect-ratio: 4/3;">
+            </div>
+            <div class="col-md-6 ps-md-5">
+                <h2 class="fw-bold mb-3" style="color: #133930;">Un emprendimiento creado por alumnos universitarios
+                </h2>
+                <p style="color: #333; font-size: 0.95rem; font-weight: 500;">
+                    Namoca tuvo la oportunidad de participar en la copa mundial de enactus en Kazajistan, representando
+                    a Mexico al haber ganado el
+                </p>
             </div>
         </div>
-    </nav>
+    </section>
 
-     <section class="container mt-4">
-        <div class="hero-card">
+    <!-- MISION / VISION -->
+    <section class="container px-4 mb-5">
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="mv-card p-4 p-md-5 h-100 rounded-4" style="background-color: #CFE0CF;">
+                    <h4 class="fw-bold mb-3" style="color: #133930;">MISIÓN</h4>
+                    <p style="color: #133930; font-size: 0.85rem; font-weight: 500; line-height: 1.6; margin: 0;">
+                        Ofrecer una alternativa innovadora y sustentable para el cuidado de la salud bucal mediante
+                        tabletas dentales que no requieren agua, contribuyendo a la prevención de caries, al ahorro de
+                        recursos hídricos, al acceso a una higiene oral práctica y efectiva para todas las personas.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="mv-card p-4 p-md-5 h-100 rounded-4" style="background-color: #CFE0CF;">
+                    <h4 class="fw-bold mb-3" style="color: #133930;">VISIÓN</h4>
+                    <p style="color: #133930; font-size: 0.85rem; font-weight: 500; line-height: 1.6; margin: 0;">
+                        Ser una empresa líder en la transformación del cuidado dental a nivel global, reconocida por
+                        revolucionar los hábitos de higiene bucal con productos sustentables, accesibles y libres de
+                        agua, mejorando la calidad de vida de millones de personas y cuidando al mismo tiempo el medio
+                        ambiente.
+                    </p>
+                </div>
+            </div>
         </div>
     </section>
 
-    <br>
-    <br>
-
-    <section class="text-center mt-5 tagline-section">
-        <h2 class="fw-bold">Ques es Namoca?</h2>
-        <p class="text-muted">
-            Somos un proyecto con proposito social que busca revolucionar el cuidado bucal a traves de tabletas bocales sustentables, saludables y accesibles. 
-            <br>Nuestro objetivo es mejorar la salud bucal de las personas, reducir el impacto ambiental y promover una cultura de cuidado dental mas consciente y responsable.
-        </p>
+    <section class="container text-center px-4 mb-5 pt-3">
+        <h4 class="fw-bold mb-4" style="color: #000;">Instituciones que nos respaldan</h4>
+        <div class="d-flex justify-content-center align-items-center flex-wrap gap-5">
+            <!-- Placeholders for logos if they don't exist in /img -->
+            <img src="/img/logoNamoca.png" alt="Logo 1"
+                style="height: 80px; object-fit: contain; filter: grayscale(50%);">
+            <img src="/img/foto cep.png" alt="Enactus"
+                style="height: 60px; object-fit: contain; filter: grayscale(50%);">
+            <img src="/img/dentalfloss.png" alt="Logo 3"
+                style="height: 80px; object-fit: contain; filter: grayscale(50%);">
+        </div>
     </section>
 
+    <section class="container mt-5 mb-5 pt-4">
+        <!-- Renderizar alerta si existe successMessage -->
+        <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert"
+            style="background-color: #D6E8D6; border-color: #133930; color: #133930;">
+            <i class="bi bi-check-circle-fill me-2"></i><span th:text="${successMessage}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
 
-    <section class="text-center mt-5 tagline-section">
-        <h2 class="fw-bold"> <Data></Data>Desarrollar como una revolución de la cultura de el <br>
-Cuidado bucodental </h2>
+        <div class="row rounded-4 mx-2" style="background-color: #CFE0CF; overflow: hidden;">
+            <div class="col-md-5 p-0 d-flex align-items-center">
+                <img src="/img/equipo.jpg" alt="Voluntarios Namoca" class="img-fluid h-100"
+                    style="object-fit: cover; min-height: 100%;">
+            </div>
+            <div class="col-md-7 p-4 p-md-5">
+                <h2 class="fw-bold mb-3" style="color: #1b4b3e;">Forma parte de nosotros!</h2>
+                <p style="color: #1b4b3e; font-size: 0.95rem; font-weight: 500;" class="mb-4">Sé parte de nuestro equipo
+                    de voluntarios y haz la diferencia mientras fortaleces tus habilidades y llevamos sonrisas a más
+                    rincones del mundo.</p>
+
+                <form action="/quienesomos/aplicar" method="POST">
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label class="form-label mb-1"
+                                style="color: #1b4b3e; font-weight: 700; font-size: 0.8rem;">Nombre completo</label>
+                            <input type="text" class="form-control rounded-pill border-0" name="nombreCompleto" required
+                                style="box-shadow: none;">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label mb-1"
+                                style="color: #1b4b3e; font-weight: 700; font-size: 0.8rem;">Edad</label>
+                            <input type="number" class="form-control rounded-pill border-0" name="edad" required
+                                style="box-shadow: none;">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label mb-1"
+                                style="color: #1b4b3e; font-weight: 700; font-size: 0.8rem;">Género</label>
+                            <input type="text" class="form-control rounded-pill border-0" name="genero" required
+                                style="box-shadow: none;">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label mb-1"
+                                style="color: #1b4b3e; font-weight: 700; font-size: 0.8rem;">Carrera</label>
+                            <input type="text" class="form-control rounded-pill border-0" name="carrera" required
+                                style="box-shadow: none;">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label mb-1"
+                                style="color: #1b4b3e; font-weight: 700; font-size: 0.8rem;">Universidad</label>
+                            <input type="text" class="form-control rounded-pill border-0" name="universidad" required
+                                style="box-shadow: none;">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label mb-1"
+                                style="color: #1b4b3e; font-weight: 700; font-size: 0.8rem;">Semestre</label>
+                            <input type="text" class="form-control rounded-pill border-0" name="semestre" required
+                                style="box-shadow: none;">
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label mb-1"
+                                style="color: #1b4b3e; font-weight: 700; font-size: 0.8rem;">Habilidades</label>
+                            <input type="text" class="form-control rounded-pill border-0" name="habilidades" required
+                                style="box-shadow: none;">
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label mb-1"
+                                style="color: #1b4b3e; font-weight: 700; font-size: 0.8rem;">Experiencia</label>
+                            <input type="text" class="form-control rounded-pill border-0" name="experiencia" required
+                                style="box-shadow: none;">
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label mb-1"
+                                style="color: #1b4b3e; font-weight: 700; font-size: 0.8rem;">Disponibilidad</label>
+                            <input type="text" class="form-control rounded-pill border-0" name="disponibilidad" required
+                                style="box-shadow: none;">
+                        </div>
+                        <div class="col-12 mt-4 text-center">
+                            <button type="submit" class="btn text-white rounded-pill w-100 py-2"
+                                style="background-color: #3f6e63; font-weight: 700; box-shadow: none; max-width: 95%;">Quiero
+                                ser parte!</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </section>
 
+    <footer th:replace="~{fragments :: footer}"></footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/cart.js"></script>
 </body>
 
 </html>

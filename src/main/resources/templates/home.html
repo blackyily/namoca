@@ -1,67 +1,82 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Namoca</title>
+    <title>Namoca – Tabletas dentales sustentables</title>
+    <meta name="description"
+        content="Namoca es una tableta dental sólida que revoluciona la higiene bucal sin necesidad de agua. Sustentable, saludable y accesible.">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/diseño.css">
-    <style>
-        .home-hero h1 {
-            font-size: 3rem;
-            font-weight: 800;
-            line-height: 1.15;
-            color: #0d1f17;
-            padding-left: 30px;
-        }
-    </style>
 </head>
 
 <body>
 
-    <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg px-4" style="background-color: #133930;">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/home">
-                <img src="/img/logoNamoca.png" width="125" height="70" alt="Namoca Logo">
-            </a>
-            <div class="ms-auto d-flex align-items-center gap-2">
-                <a class="nav-link text-white" href="/comprar">Comprar</a>
-                <a class="nav-link text-white" href="/quienesomos">Quienes somos</a>
-                <a class="nav-link text-white" href="#">Donar</a>
-                <a href="/carrito" class="cart-wrapper ms-2">
-                    <i class="bi bi-cart3 text-white fs-5"></i>
-                    <span class="cart-badge">0</span>
-                </a>
+    <nav th:replace="~{fragments :: navbar}"></nav>
+
+    <section class="home-hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <p class="small-title">NAMOCA</p>
+                <h1>Cambiando vidas<br>una tableta<br>a la vez</h1>
+                <a href="/comprar" class="btn btn-dark btn-dark-green mt-3 px-4 py-2 rounded-pill"
+                    id="hero-cta-btn">Elígenos</a>
             </div>
         </div>
-    </nav>
-
-    <!-- FULL WIDTH HERO -->
-    <section class="home-hero">
-        <div class="hero-content">
-            <p class="small-title">NAMOCA</p>
-            <h1>Cambiando vidas<br>una tableta<br>a la vez</h1>
-            <button class="btn btn-dark-green mt-3 px-4 py-2 rounded-pill" style="margin-left:30px;">Elígenos</button>
-        </div>
-        <img src="/img/top.png" alt="Bolsa Namoca" class="hero-bag">
+        <img src="/img/top.png" alt="Bolsas Namoca" class="hero-bag">
     </section>
 
-    <!-- TAGLINE -->
-    <section class="tagline-flex">
-        <h2>Sustentable, saludable<br>y accesible</h2>
+    <div class="section-divider"></div>
+    <section class="tagline-flex" id="tagline-section">
+        <h2>Sustentable, saludable&nbsp; y accesible</h2>
         <p>
-            Una alternativa innovadora para el cuidado de la<br>
-            salud bucal mediante tabletas bocales que no requieren agua
+            una alternativa innovadora para el cuidado de la salud bucal mediante tabletas
+            bocales que no requieren agua
         </p>
     </section>
+    <div class="section-divider"></div>
 
-    <!-- BOTTOM IMAGE -->
-    <section class="container-fluid px-0">
-        <img src="/img/mockup.png" class="w-100" style="object-fit:cover; max-height: 50vw; object-position: center;"
-            alt="Mujer con tableta">
+    <section class="full-photo" id="full-photo-section">
+        <img src="/img/mockup.png" alt="Mujer sosteniendo una tableta Namoca">
     </section>
+
+    <section class="mission-section" id="mission-section">
+        <div class="mission-title">
+            Namoca existe para llevar<br>
+            salud bucodental a donde<br>
+            el agua no llega
+        </div>
+        <div class="mission-text">
+            NAMOCA es una tableta dentífrica sólida, diseñada para revolucionar la
+            higiene bucal sin necesidad de agua durante su elaboración y uso.
+            Nuestra innovadora fórmula en tableta elimina por completo el
+            enjuague, ofreciendo una limpieza profunda y efectiva.
+        </div>
+    </section>
+
+    <section class="benefits-section" id="benefits-section">
+        <div class="benefit-item">
+            <div class="benefit-circle">
+                <i class="bi bi-droplet-half"></i>
+            </div>
+            <span>Ahorra 2L de agua</span>
+        </div>
+        <div class="benefit-item">
+            <div class="benefit-circle">
+                <i class="bi bi-emoji-smile"></i>
+            </div>
+            <span>Cuida tu salud</span>
+        </div>
+        <div class="benefit-item">
+            <div class="benefit-circle">
+                <i class="bi bi-flower1"></i>
+            </div>
+            <span>100% natural</span>
+        </div>
+    </section>
+
+    <footer th:replace="~{fragments :: footer}"></footer>
 
     <script src="/js/cart.js"></script>
 </body>

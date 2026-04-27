@@ -17,19 +17,18 @@ public class LoginController {
         this.repo = repo;
     }
 
-    // Mostrar formulario de login
     @GetMapping("/login")
     public String mostrarLogin(@RequestParam(required = false) String redirect, Model model) {
         model.addAttribute("redirect", redirect);
         return "login";
     }
-    
+
     @PostMapping("/login")
     public String procesarLogin(@RequestParam String email,
-                               @RequestParam String password,
-                               @RequestParam(required = false) String redirect,
-                               HttpSession session,
-                               Model model) {
+            @RequestParam String password,
+            @RequestParam(required = false) String redirect,
+            HttpSession session,
+            Model model) {
 
         Customer user = repo.findByEmailAndPassword(email, password);
 
@@ -38,7 +37,7 @@ public class LoginController {
             if (redirect != null && !redirect.isEmpty()) {
                 return "redirect:" + redirect;
             }
-            return "redirect:/home"; 
+            return "redirect:/home";
         } else {
             model.addAttribute("error", "Correo o contraseña incorrectos");
             model.addAttribute("redirect", redirect);
@@ -56,13 +55,13 @@ public class LoginController {
     // Procesar formulario de registro
     @PostMapping("/registro")
     public String procesarRegistro(@RequestParam String firstName,
-                                   @RequestParam String lastName,
-                                   @RequestParam String email,
-                                   @RequestParam String password,
-                                   @RequestParam String confirmPassword,
-                                   @RequestParam(required = false) String redirect,
-                                   Model model) {
-        
+            @RequestParam String lastName,
+            @RequestParam String email,
+            @RequestParam String password,
+            @RequestParam String confirmPassword,
+            @RequestParam(required = false) String redirect,
+            Model model) {
+
         if (!password.equals(confirmPassword)) {
             model.addAttribute("error", "Las contraseñas no coinciden");
             model.addAttribute("redirect", redirect);
@@ -71,13 +70,13 @@ public class LoginController {
 
         // Simplemente guardar sin validación de duplicados para esta demostración
         // Aunque se podría mejorar buscando por correo antes de guardar.
-        
+
         Customer newCustomer = new Customer();
         newCustomer.setFirstName(firstName);
         newCustomer.setLastName(lastName);
         newCustomer.setEmail(email);
         newCustomer.setPassword(password);
-        
+
         repo.save(newCustomer);
 
         String redirectUrl = "/login?registrado=true";

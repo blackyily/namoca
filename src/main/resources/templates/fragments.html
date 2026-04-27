@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<!-- ════════════════════════════════════════════════
+     FRAGMENT: navbar
+     Uso: <nav th:replace="~{fragments :: navbar}"></nav>
+     ════════════════════════════════════════════════ -->
+<nav th:fragment="navbar" class="navbar navbar-expand-lg px-4" style="background-color: #133930;">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/home">
+            <img src="/img/logo.png" width="125" height="70" alt="Namoca Logo">
+        </a>
+        <div class="ms-auto d-flex align-items-center gap-2">
+            <a class="nav-link text-white" href="/comprar">Comprar</a>
+            <a class="nav-link text-white" href="/quienesSomos">Quienes somos</a>
+            <a class="nav-link text-white" href="/donar">Donar</a>
+            <a href="/carrito" class="cart-wrapper ms-2" id="cart-icon-link">
+                <i class="bi bi-cart3 text-white fs-5"></i>
+                <span class="cart-badge" id="cart-count">0</span>
+            </a>
+        </div>
+    </div>
+</nav>
+
+<!-- ════════════════════════════════════════════════
+     FRAGMENT: footer
+     Uso: <footer th:replace="~{fragments :: footer}"></footer>
+     ════════════════════════════════════════════════ -->
+<footer th:fragment="footer" class="home-footer" id="home-footer">
+    <h5>Contáctanos</h5>
+    <a href="https://www.instagram.com/namocamx" target="_blank" id="footer-instagram">
+        <i class="bi bi-instagram"></i> @namocamx
+    </a>
+    <a href="tel:+524481800" id="footer-phone">
+        <i class="bi bi-telephone"></i> +52 448 1800
+    </a>
+    <a href="mailto:info@namoca.com" id="footer-email">
+        <i class="bi bi-envelope"></i> @namocanaturea
+    </a>
+</footer>
+
+</html>

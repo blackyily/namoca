@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Login</title>
 
@@ -7,32 +8,33 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/diseño.css">
 </head>
+
 <body class="body-login">
 
-<div class="login-card">
-    <h2>Log In</h2>
+    <div class="login-card">
+        <h2>Log In</h2>
 
-    <form action="/login" method="post">
-        <!-- Preserve redirect destination -->
-        <input type="hidden" name="redirect" th:value="${redirect}">
+        <form action="/login" method="post">
+            <input type="hidden" name="redirect" th:value="${redirect}">
 
-        <label>Correo</label>
-        <input type="email" name="email" required>
+            <label>Correo</label>
+            <input type="email" name="email" required>
 
-        <label>Contraseña</label>
-        <input type="password" name="password" required>
+            <label>Contraseña</label>
+            <input type="password" name="password" required>
 
-        <button type="submit">Entrar</button>
-    </form>
+            <button type="submit">Entrar</button>
+        </form>
 
-    <p style="color:red;" th:if="${error}" th:text="${error}"></p>
-    
-    <div style="margin-top: 15px; text-align: center;">
-        <p>¿No tienes cuenta? 
-            <a th:href="@{/registro(redirect=${redirect})}">Regístrate aquí</a>
-        </p>
+        <p style="color:red;" th:if="${error}" th:text="${error}"></p>
+
+        <div style="margin-top: 15px; text-align: center;">
+            <p>¿No tienes cuenta?
+                <a th:href="@{/registro(redirect=${redirect})}">Regístrate aquí</a>
+            </p>
+        </div>
     </div>
-</div>
 
 </body>
+
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <title>Namoca - Comprar</title>
@@ -11,22 +11,7 @@
 
 <body>
 
-    <nav class="navbar navbar-expand-lg px-4" style="background-color: #133930;">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/home">
-                <img src="/img/logoNamoca.png" width="125" height="70" alt="Namoca Logo">
-            </a>
-            <div class="ms-auto d-flex align-items-center gap-2">
-                <a class="nav-link text-white" href="/comprar">Comprar</a>
-                <a class="nav-link text-white" href="/quienesomos">Quienes somos</a>
-                <a class="nav-link text-white" href="#">Donar</a>
-                <a href="/carrito" class="cart-wrapper ms-2">
-                    <i class="bi bi-cart3 text-white fs-5"></i>
-                    <span class="cart-badge">0</span>
-                </a>
-            </div>
-        </div>
-    </nav>
+    <nav th:replace="~{fragments :: navbar}"></nav>
 
     <!-- Top Banner Image -->
     <section class="container-fluid px-0">
@@ -121,6 +106,9 @@
 
         </div>
     </section>
+
+    <!-- FOOTER -->
+    <footer th:replace="~{fragments :: footer}"></footer>
 
     <script src="/js/cart.js"></script>
 </body>
